@@ -70,16 +70,5 @@
     <script src="./js/add.js"></script>
     <!-- JQuery link -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Change type To DVD -->
-    <script>
-        $(document).ready(function(){
-            $('#productType').val('dvd');
-        })
-        function test(){
-            $.ajax({url:"test.php", success:function(result){
-                $("div").text(result);
-            }});
-        }
-    </script>
 </body>
 </html>

@@ -96,6 +96,10 @@ input[type="checkbox"] {
 .next:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
+#mob,
+#tab {
+  display: none;
+}
 .fade {
   -webkit-animation-name: fade;
   -webkit-animation-duration: 1s;
@@ -147,6 +151,13 @@ footer {
     flex-direction: column;
     width: 100%;
   }
+  #tab {
+    display: block;
+  }
+  #desk,
+  #mob {
+    display: none;
+  }
 }
 @media screen and (max-width: 640px) {
   h1 {
@@ -173,5 +184,12 @@ footer {
     display: flex;
     flex-direction: column;
     width: 100%;
+  }
+  #mob {
+    display: block;
+  }
+  #desk,
+  #tab {
+    display: none;
   }
 }

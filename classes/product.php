@@ -1,6 +1,7 @@
 <?php
 
-class Product extends Save{
+class Product extends QueryBuilder{
+
     private $SKU;
     private $name;
     private $price;
@@ -15,29 +16,25 @@ class Product extends Save{
         $this->description = $description;
     }
 
-    public function saveProd(){
-        if(!$this->emptyInput()){
-            echo "Fill every field";
-            header("location: ../add.php?emptyinput");
-            exit();
+    public function saveProduct() {
+        $this->valideteProduct();
+        $this->insertProduct($this->SKU,$this->name,$this->price,$this->type,$this->description);
+    }
+
+    private function valideteProduct() {
+        if ($this->emptyInput()) {
+            $this->redirect("Fill every field","../add.php?emptyinput");
         }
-        if(!$this->invalidSKU()){
-            echo "Invalid SKU";
-            header("location: ../add.php?invalidSKU");
-            exit();
+        if ($this->invalidSKU()) {
+            $this->redirect("Invalid SKU","../add.php?invalidSKU");
         }
-        $this->saveProduct($this->SKU,$this->name,$this->price,$this->type,$this->description);
     }
 
     private function emptyInput() {
-        if(empty($this->SKU) || empty($this->name) ||empty($this->price)){
-            return false;
-        }else return true;
+        return empty($this->SKU) || empty($this->name) ||empty($this->price);
     }
-    private function invalidSKU(){
-        if(preg_match('~[^a-z\d]~i', $this->SKU)){
-            return false;
-        }else return true;
+    private function invalidSKU() {
+        return preg_match('~[^a-z\d]~i', $this->SKU);
     }
 
 }

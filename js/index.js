@@ -1,3 +1,4 @@
+// slider
 var slideIndex = 1;
 // Slider for desktop version
 showSlidesD(slideIndex);
@@ -55,4 +56,38 @@ function showSlidesM(n) {
     slides[i].style.display = "none";
   }
   slides[slideIndex - 1].style.display = "block";
+}
+
+// getCheckboxesValues
+function getCheckboxesValues() {
+  return [].slice
+    .apply(document.querySelectorAll("input[type=checkbox]"))
+    .filter(function (c) {
+      return c.checked;
+    })
+    .map(function (c) {
+      return c.value;
+    });
+}
+
+// varieble to store checked boxes
+var checked = [];
+
+// function will be executed after delete button click
+function sendToPHP() {
+  // store checked boxes
+  checked = getCheckboxesValues();
+
+  // send to php file
+  $.ajax({
+    url: "includes/deleteInc.php",
+    method: "post",
+    data: { checked },
+    success: function (res) {
+      console.log(res);
+    },
+  });
+  // reset checkboxes and reload page
+  $(":checkbox").prop("checked", false);
+  location.reload();
 }

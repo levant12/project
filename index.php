@@ -1,3 +1,26 @@
+<?php
+include "./includes/displayInc.php";
+
+function echoProducts(int $inSlides, int $inRows, $products, string $slidesClass){
+    $typeDescription = ["furniture" => "dimension: ", "dvd" => "size: ", "book" => "weight: "];
+    for ($i = 0; $i< sizeof($products); $i++) { 
+        echo ($i%$inSlides == 0) ? "<div class='{$slidesClass} fade'>" : "";
+        echo ($i%$inRows == 0) ? "<div class='row'>" : "";
+        echo "<div class='p'>";
+        echo "<input type='checkbox' value='{$products[$i]->p_ID}'>";
+        echo "<br>";
+        echo "<p>{$products[$i]->p_sku}</p>";
+        echo "<h3>{$products[$i]->p_name}</h3>";
+        $price = sprintf("%.2f",$products[$i]->p_price);
+        echo "<p>{$price}$</p>";
+        echo "<p>{$typeDescription[$products[$i]->p_type]}{$products[$i]->p_description}</p>";
+        echo "</div>";
+        echo ($i%$inRows == ($inRows - 1)) ? "</div>" : "";
+        echo ($i%$inSlides == ($inSlides - 1)) ? "</div>" : "";
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,270 +34,40 @@
     <header>
         <a href="#"><h1>Product List</h1></a>
         <a href="./add.php" id="linkAdd"><button>Add</button></a>
-        <button id="delete-product-btn">Mass Delete</button>
+        <!-- <a href="./test.php"><button id="delete-product-btn" onclick="sendToPHP()">Mass Delete</button></a> -->
+        <button id="delete-product-btn" onclick="sendToPHP()">Mass Delete</button>
     </header>
     <hr>
     <!-- Desktop version -->
     <section id="desktop" class="products slider">
-        <div class="slidesD fade">
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-        </div>
-        <div class="slidesD fade">
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-        </div>
-        <a class="prev" onclick="plusSlidesD(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlidesD(1)">&#10095;</a>
+        <?php 
+        
+            echoProducts(10,5,$products,"slidesD");
+
+        ?>
     </section>
+    <a class="prev" id="desk" onclick="plusSlidesD(-1)">&#10094;</a>
+    <a class="next" id="desk" onclick="plusSlidesD(1)">&#10095;</a>
     <!-- Tablet version -->
     <section id="tablet" class="products slider">
-        <div class="slidesT fade">
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-        </div>
-        <div class="slidesT fade">
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-        </div>
-        <a class="prev" onclick="plusSlidesT(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlidesT(1)">&#10095;</a>
+    <?php 
+        
+        echoProducts(6,3,$products,"slidesT");
+        
+    ?>
     </section>
+    <a class="prev" id="tab" onclick="plusSlidesT(-1)">&#10094;</a>
+    <a class="next" id="tab" onclick="plusSlidesT(1)">&#10095;</a>
     <!-- Mobile version -->
     <section id="mobile" class="products slider">
-        <div class="slidesM fade">
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-        </div>
-        <div class="slidesM fade">
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="p">
-                    <input type="checkbox">
-                    <br>
-                    <h3>Product</h3>
-                    <p>price:10.00$</p>
-                </div>
-            </div>
-        </div>
-        <a class="prev" onclick="plusSlidesM(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlidesM(1)">&#10095;</a>
+    <?php 
+        
+        echoProducts(2,1,$products,"slidesM");
+        
+    ?>
     </section>
+    <a class="prev" id="mob" onclick="plusSlidesM(-1)">&#10094;</a>
+    <a class="next" id="mob" onclick="plusSlidesM(1)">&#10095;</a>
     <footer>
         <hr>
         Scandiweb Test Assigment
