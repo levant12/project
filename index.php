@@ -1,25 +1,6 @@
 <?php
-include "./includes/displayInc.php";
-
-function echoProducts(int $inSlides, int $inRows, $products, string $slidesClass){
-    $typeDescription = ["furniture" => "dimension: ", "dvd" => "size: ", "book" => "weight: "];
-    for ($i = 0; $i< sizeof($products); $i++) { 
-        echo ($i%$inSlides == 0) ? "<div class='{$slidesClass} fade'>" : "";
-        echo ($i%$inRows == 0) ? "<div class='row'>" : "";
-        echo "<div class='p'>";
-        echo "<input type='checkbox' value='{$products[$i]->p_ID}'>";
-        echo "<br>";
-        echo "<p>{$products[$i]->p_sku}</p>";
-        echo "<h3>{$products[$i]->p_name}</h3>";
-        $price = sprintf("%.2f",$products[$i]->p_price);
-        echo "<p>{$price}$</p>";
-        echo "<p>{$typeDescription[$products[$i]->p_type]}{$products[$i]->p_description}</p>";
-        echo "</div>";
-        echo ($i%$inRows == ($inRows - 1)) ? "</div>" : "";
-        echo ($i%$inSlides == ($inSlides - 1)) ? "</div>" : "";
-    }
-}
-
+require_once "./includes/displayInc.php";
+require_once "./vendor/autoload.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,47 +8,40 @@ function echoProducts(int $inSlides, int $inRows, $products, string $slidesClass
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./assests/css/index.css">
     <title>Product List</title>
 </head>
 <body>
     <header>
         <a href="#"><h1>Product List</h1></a>
-        <a href="./add.php" id="linkAdd"><button>Add</button></a>
-        <!-- <a href="./test.php"><button id="delete-product-btn" onclick="sendToPHP()">Mass Delete</button></a> -->
-        <button id="delete-product-btn" onclick="sendToPHP()">Mass Delete</button>
+        <a href="./pages/add.php" id="linkAdd"><button>Add</button></a>
+        <button id="delete-product-btn" onclick="deleteButtonClickEvent()">Mass Delete</button>
     </header>
     <hr>
     <!-- Desktop version -->
     <section id="desktop" class="products slider">
-        <?php 
-        
-            echoProducts(10,5,$products,"slidesD");
-
-        ?>
+        <!-- function will display 10 products in each slide and 5 in each row -->
+        <?php echoProducts(10,5,$products,"slidesD"); ?>
     </section>
-    <a class="prev" id="desk" onclick="plusSlidesD(-1)">&#10094;</a>
-    <a class="next" id="desk" onclick="plusSlidesD(1)">&#10095;</a>
+    <!-- arrows to use slider fot desktop -->
+    <a class="prev" id="desk" onclick="plusSlide(-1,'slidesD')">&#10094;</a>
+    <a class="next" id="desk" onclick="plusSlide(1,'slidesD')">&#10095;</a>
     <!-- Tablet version -->
     <section id="tablet" class="products slider">
-    <?php 
-        
-        echoProducts(6,3,$products,"slidesT");
-        
-    ?>
+        <!-- function will display 6 products in each slide and 3 in each row -->
+        <?php echoProducts(6,3,$products,"slidesT"); ?>
     </section>
-    <a class="prev" id="tab" onclick="plusSlidesT(-1)">&#10094;</a>
-    <a class="next" id="tab" onclick="plusSlidesT(1)">&#10095;</a>
+    <!-- arrows to use slider fot tablet -->
+    <a class="prev" id="tab" onclick="plusSlide(-1,'slidesT')">&#10094;</a>
+    <a class="next" id="tab" onclick="plusSlide(1,'slidesT')">&#10095;</a>
     <!-- Mobile version -->
     <section id="mobile" class="products slider">
-    <?php 
-        
-        echoProducts(2,1,$products,"slidesM");
-        
-    ?>
+        <!-- function will display 2 products in each slide and 1 in each row -->
+        <?php echoProducts(2,1,$products,"slidesM"); ?>
     </section>
-    <a class="prev" id="mob" onclick="plusSlidesM(-1)">&#10094;</a>
-    <a class="next" id="mob" onclick="plusSlidesM(1)">&#10095;</a>
+    <!-- arrows to use slider fot mobile -->
+    <a class="prev" id="mob" onclick="plusSlide(-1,'slidesM')">&#10094;</a>
+    <a class="next" id="mob" onclick="plusSlide(1,'slidesM')">&#10095;</a>
     <footer>
         <hr>
         Scandiweb Test Assigment
@@ -75,6 +49,6 @@ function echoProducts(int $inSlides, int $inRows, $products, string $slidesClass
     <!-- JQuery link -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- JS link -->
-    <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="./assests/js/index.js"></script>
 </body>
 </html>
